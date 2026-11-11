@@ -88,7 +88,7 @@ void Menu::renderLogo() {
 		ImGui::SameLine();
         // Adjust vertical position if needed
         ImGui::SetCursorPosY(isIphone ? 5 : 11);
-		ImGui::TextUnformatted(obf("MOD MENU").c_str());
+		ImGui::TextUnformatted(obf("BAWA G STORE").c_str());
 		ImGui::PopFont();
 
 		ImGui::EndChild();
@@ -100,10 +100,17 @@ void Menu::renderLogo() {
 // Bottom Left Part of the menu 
 void Menu::renderUser() {
 
-	int height = isIphone ? 60 : 80;
+	int height = isIphone * 110 + !isIphone * 140;
 	ImGui::Dummy(ImVec2(0.0f, ImGui::GetContentRegionAvail().y - height - style->ItemSpacing.y));
     ImGui::BeginChild(obf("User").c_str(), ImVec2(isIphone ? 118.5 : 158, height), true);
-	ImGui::Text("UserTest1");
+	ImGui::Text("BAWA G STORE");
+	ImGui::Spacing();
+	if (ImGui::Button("Telegram")) {
+		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://t.me/bawagstore"] options:@{} completionHandler:nil];
+	}
+	if (ImGui::Button("WhatsApp")) {
+		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://chat.whatsapp.com/F9ZdAEk39iuGeAiALXZ6oJ"] options:@{} completionHandler:nil];
+	}
 	ImGui::EndChild();
 }
 
@@ -328,36 +335,4 @@ void Menu::render() {
     if (ImGui::Begin("ModMenu", nullptr, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar)) {
         ImGuiWindow* CurrentWindow = ImGui::GetCurrentWindow();
         MenuSize   = CurrentWindow->Size;
-        MenuOrigin = CurrentWindow->Pos;
-        
-        
-        ImGui::Columns(2);
-        ImGui::SetColumnOffset(1, isIphone ? 129.75 : 173);
-        
-        renderPanel();
-        
-        {// Right side
-            ImGui::NextColumn();
-            
-            switch (selectedTab) {
-                case 0: {
-                    renderSubTab0();
-                    break;
-                }
-                case 1: {
-                    renderSubTab1();
-                    break;
-                }
-                case 2: {
-                    renderSubTab2();
-                    break;
-                }
-                case 3: {
-                    
-                    break;
-                }
-            }
-        }
-        ImGui::End();
-    }
-}
+        MenuOrigin
