@@ -13,12 +13,12 @@ jobs:
 
     - name: Remove conflicting Makefile and Build
       run: |
-        # Extra Makefile ko hata dein taake Xcode project build mein conflict na kare
         find . -name "Makefile" -not -path "./.git/*" -delete
         
         PROJECT_FILE=$(find . -name "*.xcodeproj" -maxdepth 2 | head -n 1)
         echo "Found project: $PROJECT_FILE"
-        xcodebuild -project "$PROJECT_FILE" -alltargets -configuration Release CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO INFOPLIST_FILE=""
+        
+        xcodebuild -project "$PROJECT_FILE" -alltargets -configuration Release CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO INFOPLIST_FILE="" OTHER_LDFLAGS="-framework MetalKit -framework Metal -framework Foundation -framework UIKit"
 
     - name: Upload dylib Artifact
       uses: actions/upload-artifact@v4
