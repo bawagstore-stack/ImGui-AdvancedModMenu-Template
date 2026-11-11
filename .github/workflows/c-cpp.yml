@@ -11,9 +11,11 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Build Xcode Project
+    - name: Build Xcode Project Automatically
       run: |
-        xcodebuild -project ImGui-AdvancedModMenu-Template.xcodeproj -scheme "ImGui-AdvancedModMenu-Template" -configuration Release CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
+        PROJECT_FILE=$(find . -name "*.xcodeproj" -maxdepth 2 | head -n 1)
+        echo "Found project: $PROJECT_FILE"
+        xcodebuild -project "$PROJECT_FILE" -alltargets -configuration Release CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
 
     - name: Upload dylib Artifact
       uses: actions/upload-artifact@v4
