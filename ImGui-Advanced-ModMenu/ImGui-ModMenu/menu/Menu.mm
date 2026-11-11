@@ -121,7 +121,7 @@ void Menu::renderTabs() {
 	ImGui::BeginChild(obf("tabs").c_str(), ImVec2(isIphone ? 118.5 : 158, isIphone ? 165 : 220), true);
 	ImGui::Spacing();
 
-	ImGuiV4 col(0, 0, 0, 0);
+	ImVec4 col(0, 0, 0, 0);
 	ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 10);
 	std::string tabNames[] = { obf(ICON_FA_CROSSHAIRS " Main"), obf(ICON_FA_EYE " Visuals"), obf(ICON_FA_COG " Misc"), obf(ICON_FA_TOOLS " Settings") };
 	
